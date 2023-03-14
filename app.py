@@ -50,9 +50,9 @@ def div():
 
     # Calculate the result
     if num2 != 0:
-        result = "Invalid Dividend "
-    else:
         result = num1 / num2
+    else:
+        result = "Invalid Dividend "
 
     # Return the result in the response
     return {'result': result}

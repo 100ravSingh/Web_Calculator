@@ -7,4 +7,5 @@
 ### 4. pip install -r requirements.txt
 ### 5. flask run
 ### 6. Browse to the sample application at http://localhost:5000 in a web browser.
-### any update or rectification on program are openly welcome.
+#### Azure Deployment : https://web-calculator.azurewebsites.net/ ( activate 08 March 2024 )
+#### any update or rectification on program are openly welcome.

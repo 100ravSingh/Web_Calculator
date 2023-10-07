@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1 align= "center" >Calculator</h1>
+
+    <form id="calculatorForm" action="/calculate" method="POST">
+        <label for="num1"><h4>Enter Number 1:</h4></label>
+        <input type="number" name="num1" id="num1" required><br>
+        <label for="num2"><h4>Enter Number 2:</h4></label>
+        <input type="number" name="num2" id="num2" required><br>
+        <input type="submit" value="Add">
+        <button type="button" id="subtractBtn">Subtract</button>
+        <button type="button" id="multiplyBtn">Multiply</button>
+        <button type="button" id="divideBtn">Divide</button>
+    </form>
+    
+    <div id="result">
+        {% if result %}
+        <h6>Result:</h6>
+        <p>{{ result }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#calculatorForm').submit(function (e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'), // Use the form's action attribute
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $('#result').html('<h5 align = "center"><p> Result: ' + data.result + '</p></h5>');
+                    }
+                });
+            });
+
+            $('#subtractBtn').click(function () {
+                $('#calculatorForm').attr('action', '/subtract');
+                $('#calculatorForm').submit();
+            });
+
+            $('#multiplyBtn').click(function () {
+                $('#calculatorForm').attr('action', '/multiply');
+                $('#calculatorForm').submit();
+            });
+
+            $('#divideBtn').click(function () {
+                $('#calculatorForm').attr('action', '/divide');
+                $('#calculatorForm').submit();
+            });
+
+            $('input[type="submit"]').click(function () {
+            $('#calculatorForm').attr('action', '/calculate');
+        });
+    });
+    </script>
+
+</body>
+
+</html>

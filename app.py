@@ -1,61 +1,49 @@
-from flask import Flask, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/add', methods=['POST'])
-def add():
-    # Get the numbers to add from the request body
-    data = request.get_json()
-    num1 = data['num1']
-    num2 = data['num2']
+@app.route('/')
+def index():
+    return render_template('index.html', result=None)
 
-    # Calculate the result
+@app.route('/calculate', methods=['POST'])
+def add():
+    num1 = float(request.form['num1'])
+    num2 = float(request.form['num2'])
     result = num1 + num2
 
-    # Return the result in the response
-    return {'result': result}
+    # Return a partial HTML response
+    return jsonify(result=result)
 
 @app.route('/subtract', methods=['POST'])
 def subtract():
-    # Get the numbers to add from the request body
-    data = request.get_json()
-    num1 = data['num1']
-    num2 = data['num2']
-
-    # Calculate the result
+    num1 = float(request.form['num1'])
+    num2 = float(request.form['num2'])
     result = num1 - num2
 
-    # Return the result in the response
-    return {'result': result}
+    # Return a partial HTML response
+    return jsonify(result=result)
 
 @app.route('/multiply', methods=['POST'])
 def multiply():
-    # Get the numbers to add from the request body
-    data = request.get_json()
-    num1 = data['num1']
-    num2 = data['num2']
-
-    # Calculate the result
+    num1 = float(request.form['num1'])
+    num2 = float(request.form['num2'])
     result = num1 * num2
 
-    # Return the result in the response
-    return {'result': result}
+    # Return a partial HTML response
+    return jsonify(result=result)
 
-@app.route('/div', methods=['POST'])
-def div():
-    # Get the numbers to add from the request body
-    data = request.get_json()
-    num1 = data['num1']
-    num2 = data['num2']
-
-    # Calculate the result
+@app.route('/divide', methods=['POST'])
+def division():
+    num1 = float(request.form['num1'])
+    num2 = float(request.form['num2'])
     if num2 != 0:
         result = num1 / num2
     else:
-        result = "Invalid Dividend "
+        result = "Can't divide by Zero"
 
-    # Return the result in the response
-    return {'result': result}
+    # Return a partial HTML response
+    return jsonify(result=result)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
